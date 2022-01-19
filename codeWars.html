@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Su objetivo en este kata es implementar una función de diferencia, que resta una lista de otra y devuelve el resultado.
+      //   Debería eliminar todos los valores de la lista a, que están presentes en la lista b.
+      //     arrayDiff([1, 2], [1]) == [2]
+      //   Si un valor está presente en b, todas sus ocurrencias deben eliminarse del otro:
+      //   arrayDiff([1, 2, 2, 2, 3], [2]) == [1, 3]
+
+      function arrayDiff(a, b) {
+        let result = [];
+        if (a.length === 0) {
+          return result;
+        }
+        if (b.length === 0) {
+          result = a;
+        }
+        a.forEach((ael) => {
+          b.forEach((bel) => {
+            if (ael !== bel) {
+              result.push(ael);
+            }
+          });
+        });
+        return result;
+      }
+
+      // console.log(arrayDiff([], [2]));
+
+      // Escriba una función que tome un número entero como entrada y devuelva el número de bits que son iguales a uno en la representación binaria de ese número.Puede garantizar que la entrada no sea negativa.
+      //     Ejemplo : la representación binaria de 1234 es 10011010010, por lo que la función debería regresar 5 en este caso
+
+      const countBits = function (n) {
+        let binario;
+        if (n >= 0) {
+          if (n % 2 === 1) {
+            binario = 1;
+          }
+          return binario;
+        } else {
+          return;
+        }
+      };
+
+      // console.log(countBits(8));
+
+      // Dada una matriz de números enteros, encuentre el que aparece un número impar de veces.
+      //   Siempre habrá un solo número entero que aparezca un número impar de veces.
+      // function TestEjemplo() {
+      //     doTest([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5], 5)};
+
+      function findOdd(A) {
+        let obj = {};
+        let impar;
+        A.forEach((el, index) => {
+          if (A.indexOf(el) !== index) {
+            let prop = el.toString();
+            if (obj.hasOwnProperty(prop)) {
+              obj[el]++;
+            } else {
+              obj[el] = 1;
+            }
+          }
+        });
+        for (let num in obj) {
+          obj[num] = obj[num] + 1;
+          if (obj[num] % 2 !== 0) {
+            impar = num;
+          }
+        }
+        return parseInt(impar);
+      }
+
+      // console.log(
+      //   findOdd([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5])
+      // );
+
+      // Por lo general, cuando compra algo, se le pregunta si su número de tarjeta de crédito, número de teléfono o respuesta a su pregunta más secreta sigue siendo correcto.Sin embargo, dado que alguien podría mirar por encima de su hombro, no quiere que eso se muestre en su pantalla.En cambio, lo enmascaramos.
+
+      //Su tarea es escribir una función maskify, que cambie todos los caracteres excepto los últimos cuatro en '#'.
+
+      const maskify = (str) => {
+        const arr = str.split("");
+        return arr.fill("#", 0, arr.length - 4).join("");
+      };
+
+      // Probablemente conozca el sistema "Me gusta" de Facebook y otras páginas.Las personas pueden "dar me gusta" a publicaciones de blogs, imágenes u otros elementos.Queremos crear el texto que debería mostrarse junto a dicho elemento.
+      //   Implemente una función likes:: [String] -> String, que debe incluir una matriz de entrada, que contenga los nombres de las personas a las que les gusta un elemento.Debe devolver el texto de la pantalla como se muestra en los ejemplos:
+      // likes[]-- must be "no one likes this"
+      // likes["Peter"]-- must be "Peter likes this"
+      // likes["Jacob", "Alex"]-- must be "Jacob and Alex like this"
+      // likes["Max", "John", "Mark"]-- must be "Max, John and Mark like this"
+      // likes["Alex", "Jacob", "Mark", "Max"]-- must be "Alex, Jacob and 2 others like this"
+
+      function likes(arr) {
+        if (arr.length === 0) {
+          return `No hay me gusta`;
+        } else if (arr.length === 1) {
+          return `A ${arr[0]} le gusta esto`;
+        } else {
+          if (arr.length === 2) {
+            return `A ${arr[0]} y ${arr[1]} les gusta esto`;
+          }
+          if (arr.length > 2) {
+            return `A ${arr[0]}, ${arr[1]} y a otras ${
+              arr.length - 2
+            } personas les gusta esto`;
+          }
+        }
+      }
+
+      // console.log(likes([]));
+
+      // Cree una función tomando un entero positivo como parámetro y devolviendo una cadena que contenga la representación en números romanos de ese entero.
+
+      //   Los números romanos modernos se escriben expresando cada dígito por separado comenzando con el dígito más a la izquierda y saltando cualquier dígito con un valor de cero.En números romanos se representa 1990: 1000 = M, 900 = CM, 90 = XC; resultando en MCMXC. 2008 se escribe como 2000 = MM, 8 = VIII; o MMVIII. 1666 usa cada símbolo romano en orden descendente: MDCLXVI.
+      //     Ejemplo:
+      //   solution(1000); // should return 'M'
+      //   Ayuda:
+      //   Symbol    Value
+      //   I          1
+      //   V          5
+      //   X          10
+      //   L          50
+      //   C          100
+      //   D          500
+      //   M          1,000
+      //   Recuerda que no puede haber más de 3 símbolos idénticos seguidos.
+
+      // Complete la función que acepta un parámetro de cadena e invierte cada palabra en la cadena. Todos los espacios en la cadena deben conservarse.
+      // "This is an example!" ==> "sihT si na !elpmaxe"
+      // "double  spaces"      ==> "elbuod  secaps"
+      const palabra = "This is an example!";
+
+      function investWord(word) {
+        let wordNew = "";
+        for (let i = 0; i < word.length; i++) {
+          wordNew += word[word.length - i - 1];
+        }
+        return wordNew;
+      }
+
+      function recorrido(str) {
+        const arrOut = [];
+        let arr = str.split(" ");
+        for (let i = 0; i < arr.length; i++) {
+          arrOut.push(investWord(arr[i]));
+        }
+        return arrOut.join(" ");
+      }
+
+      console.log(recorrido(palabra));
+
+      // < -------- Ejercicios postularse entrevistas de Nueva Zelanda ---------- >
+
+      //Analizar las alternativas
+
+      // N°1
+      function multiplicar(a, b) {
+        let res = 0;
+        let pos = Math.abs(b);
+        for (let i = 0; i != pos; i++) {
+          res += a;
+        }
+
+        return b >= 0 ? res : -res;
+      }
+
+      //Solucion alternativa Hola Mundo al N°1
+      const multiply = (a, b) => {
+        let resultado = 0;
+        const positivo = Math.abs(b) == b;
+        for (i = 0; i < Math.abs(b); i++) {
+          resultado = positivo ? resultado + a : resultado - a;
+        }
+
+        return resultado;
+      };
+
+      // N°2
+      function maximo(arr) {
+        let numMax = arr[0];
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] > numMax) {
+            numMax = arr[i];
+          }
+        }
+        return numMax;
+      }
+
+      //Solucion alternativa Hola Mundo al N°2
+      const mayor = (arr) => arr.reduce((acc, el) => (acc > el ? acc : el));
+
+      // N°3
+      const filtrado = (arr) => {
+        return arr.filter(
+          (el) => el !== undefined && el !== false && el !== 0 && el !== null
+        );
+      };
+      // console.log(filtrado([0, 200, "hola", 25, 30, false, undefined, null]))
+
+      //Solucion alternativa Hola Mundo al N°3
+      //Codigo
+
+      // N°4
+      function flattern(array) {
+        let solve = [];
+        for (let i = 0; i < array.length; i++) {
+          for (let j = 0; j < array[i].length; j++) {
+            solve.push(array[i][j]);
+          }
+        }
+        return solve;
+      }
+
+      //Soluciones alternativas n°4
+      const flatten = (arr) => arr.reduce((acc, el) => acc.concat(el), []);
+
+      // console.log(flatten([[1, 2], [[3, 4]], [1, []]]));
+
+      // n°6 Palindromo
+      // Verificar si un string es un Palindromo
+      const isPalindrome = (str) => {
+        str = str.replace(/\s/g, "");
+        const lower = str.toLowerCase();
+        const reverse = lower.split("").reverse().join("");
+        return lower === reverse;
+      };
+
+      console.log(isPalindrome("Aman a Panama"));
+
+      //Ejercicio entrevista BettaTech 1
+      //Dado un string hay que contar la cantidad de veces que se repite cada palabra, admite puntos, comas y mayusculas.
+      let text = "Hola, hola tal Mundo. Tal que tal, monaso, monaso!";
+
+      function normalize(str) {
+        return str.toLowerCase().replace(/[.!,]/g, "");
+      }
+
+      const wordsCount = (text) => {
+        const wordsObj = {};
+        let arr = normalize(text);
+        arr = arr.split(" ");
+        arr.forEach((el) => {
+          if (wordsObj.hasOwnProperty(el)) {
+            wordsObj[el]++;
+          } else {
+            wordsObj[el] = 1;
+          }
+        });
+        return wordsObj;
+      };
+      console.log(wordsCount(text));
+
+      //Ejercicio entrevista BettaTech 2
+      //Dado un string hay formado por (),[],{}, escribe un programa que indique si los pares correspondientes son correctos.
+
+      //Entrada: [()]{}{[()()]()} (CORRECTO)
+      //Entrada: [(]) (INCORRECTO)
+
+      function isopen(caracter) {
+        return ["{", "[", "("].includes(caracter);
+      }
+
+      function closes(carA, carB) {
+        let objPairs = {
+          "{": "}",
+          "[": "]",
+          "(": ")",
+        };
+        return objPairs[carA] === carB;
+      }
+
+      function validate(str) {
+        let stack = [];
+        for (let caracter of str.split("")) {
+          if (isopen(caracter)) {
+            stack.push(caracter);
+          } else {
+            let topCar = stack.pop();
+            if (!closes(topCar, caracter)) {
+              return false;
+            }
+          }
+        }
+        return stack.length === 0;
+      }
+
+      // Dadas dos matrices de cadenas a1 y a2 devuelve una matriz ordenada ren orden lexicográfico de cadenas a1 cuyas son subcadenas de cadenas de a2.
+
+      // #Ejemplo 1: a1 = ["arp", "live", "strong"]
+      // a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+      // devoluciones ["arp", "live", "strong"]
+      // #Ejemplo 2: a1 = ["tarp", "mice", "bull"]
+      // a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+      // devoluciones []
+      // Notas:
+      //     Las matrices se escriben en notación "general". Consulte "Sus casos de prueba" para ver ejemplos en su idioma.
+      //     En Shell bash a1 y a2 son cadenas. El retorno es una cadena donde las palabras están separadas por comas.
+      //     Cuidado: debe estar sin duplicados.
+      //     No mutes las entradas.
+
+      const a1 = ["arp", "live", "strong"];
+      const a2 = ["lively", "alive", "harp", "sharp", "armstrong"];
+
+      function arrLexi(a1, a2) {
+        let converStr = a2.toString().replace(/[,]/g, " ");
+        let result = [];
+        for (caracter of a1) {
+          let exp = new RegExp(caracter);
+          if (exp.exec(converStr)) {
+            result.push(caracter);
+          }
+        }
+        return console.log(result.sort());
+      }
+
+      arrLexi(a1, a2);
+
+      //    La idea principal es contar todos los caracteres que aparecen en una cadena. Si tiene una cadena como aba, entonces el resultado debería ser {'a': 2, 'b': 1}.
+    </script>
+  </body>
+</html>
